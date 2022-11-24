@@ -19,7 +19,11 @@ while True:
         file_name, file_extension = object_path.split("/")[-1].split(".")
 
         if file_extension == "py":
-            subprocess.call(f"python ./{file_name}.{file_extension} 1", shell=True)
+            try:
+                subprocess.call(f"python ./{file_name}.{file_extension} 1", shell=True)
+            except RuntimeError:
+                print("Error Occurred.")
+                print(RuntimeError)
             # removing processed file from server and source
             os.remove(object_path)
             os.remove(object_path.split("/")[-1])
