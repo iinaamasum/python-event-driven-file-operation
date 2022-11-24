@@ -23,13 +23,23 @@ if file_extension == "py":
 elif file_extension == "txt":
     for i in range(1, 4):
         send_file_name = file_name + "_" + str(i) + "." + file_extension
-        print(send_file_name)
+
+        with open(f"./{file_name}.{file_extension}", "r") as file:
+            lines = file.readlines()[0 : i * 10]
+        file.close()
+        print(lines)
+
+        shutil.copy(object_path, send_file_name)
+        with open(send_file_name, "w") as file:
+            file.writelines([x for x in lines])
+        file.close()
+
 else:
     print("The file is not either .txt or .py. So further process stopped here")
 
 
-with open("some.txt", "w") as file:
-    file.write("")
-    for i in range(1, 31):
-        file.write(f"Line no. {i}\n")
-file.close()
+# with open("some.txt", "w") as file:
+#     file.write("")
+#     for i in range(1, 31):
+#         file.write(f"Line no. {i}\n")
+# file.close()
